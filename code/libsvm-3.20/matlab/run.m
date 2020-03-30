@@ -1,0 +1,13 @@
+%importGround;
+%importMatrix;
+mmlinkMatrix = mapminmax(linkmatrix);
+zlinkMatrix = mmlinkMatrix;%mapstd(mmlinkMatrix);
+train_num = 6000;
+train_ground = ground(1:train_num);
+train_instance_matrix = zlinkMatrix(1:train_num, :);
+test_ground = ground(train_num+1: end);
+test_instance_matrix = zlinkMatrix(train_num+1:end,:);
+model = svmtrain(train_ground, train_instance_matrix, '-t 3 -h 0 -b 1 -g 0.1');
+[predicted_label, accuracy, prob_estimates] = svmpredict(test_ground, test_instance_matrix, model);
+%svmtrain(train_ground, train_instance_matrix,'-c 1 -t 2 -h 0 -b 1 -g 0.5 -v 5');
+%[predicted_label, accuracy, prob_estimates] = svmpredict(test_label_vector, test_instance_matrix, model);
